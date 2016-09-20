@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD//EN"
+"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<!-- this is where we tell hibernate where the resources are -->
+<!-- the object that connects to the database -->
+
+<hibernate-configuration>
+
+	<session-factory>
+		<!-- JNDI look up name -->
+		<property name="hibernate.connection.datasource">jdbc/testDS</property>
+		
+		<!-- these two lines not needed for web app -->
+		<property name="hibernate.jndi.url">t3://localhost:7001</property>
+		<property name="hibernate.jndi.class">weblogic.jndi.WLInitialContextFactory</property>
+		
+		<!--  which database language are we using -->
+		<property name="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</property>
+
+		<!--  tells how much information to print when performing a function -->
+		<property name="show_sql">false</property>
+		
+		<!--  checks to see if a table exists. If it doesn't, build a new table -->
+		<property name="hibernate.hbm2ddl.auto">update</property>
+		
+		<!-- release/close connection, returns a connection when the session is closed -->
+		<property name="hibernate.connection.release_mode">on_close</property>
+		
+		<!-- to set isolation level, concurrency (1, 2, 4, 8) 8 is full isolation- stop phantom reads, serialization -->
+		<!-- one connection at a time to a table  -->
+		<property name="hibernate.connection.isolation">8</property>
+
+		<!-- no mapping resource , use mapping class, hibernate's support of JPA -->
+		
+		<mapping class="com.revature.dataservice.Institution"/>
+		<mapping class="com.revature.dataservice.User"/>
+		<mapping class="com.revature.dataservice.Commitment"/>
+		<mapping class="com.revature.dataservice.Loan"/>
+		<mapping class="com.revature.dataservice.PurchaseLog"/>
+		
+	</session-factory>
+</hibernate-configuration>
+
